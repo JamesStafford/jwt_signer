@@ -12,13 +12,15 @@ export function sign(payload, privateKey) {
     return jwt.sign(payload, privateKey);
 }
 
+export const PromptForPayloadFilePath = "Please enter filepath to payload: ";
+
 export function processUserInput() {
     const readLineInterface = readline.createInterface({
        input: process.stdin,
        output: process.stdout
     });
 
-    readLineInterface.write("Hello, world!");
+    readLineInterface.write(PromptForPayloadFilePath);
 
     // readLineInterface.on("Hello, world", () => {});
 

@@ -3,7 +3,7 @@ import * as mockProcess from "jest-mock-process";
 import {
     MissingPayloadAndPrivateKeyError,
     MissingPayloadError,
-    MissingPrivateKeyError, processUserInput,
+    MissingPrivateKeyError, processUserInput, PromptForPayloadFilePath,
     sign,
 } from "../src/signer";
 
@@ -60,10 +60,10 @@ describe("For Signer, ", () => {
         });
     });
 
-    test("User is requested to enter filepath for payload and private key.", () => {
+    test("User is requested to enter filepath for payload.", () => {
         const mockedStdOut = mockProcess.mockProcessStdout();
         processUserInput();
-        expect(mockedStdOut).toHaveBeenCalledWith('Hello, world!');
+        expect(mockedStdOut).toHaveBeenCalledWith(PromptForPayloadFilePath);
     });
   });
 });
