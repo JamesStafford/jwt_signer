@@ -1,0 +1,26 @@
+{
+  "name": "jwt_signer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node src/signer.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/node": "^7.14.9",
+    "@babel/preset-env": "^7.15.0",
+    "babel-cli": "^6.26.0",
+    "babel-jest": "^27.0.6",
+    "jest": "^27.0.6",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.12",
+    "prettier": "^2.3.2"
+  },
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest"
+  }
+}
