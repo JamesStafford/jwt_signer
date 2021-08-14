@@ -1,7 +1,8 @@
 import {
+  MissingHeaderError, MissingHeaderString,
   MissingPayloadAndPrivateKeyError,
   MissingPayloadError,
-  MissingPrivateKeyError,
+  MissingPrivateKeyError, parseHeaderString,
   sign,
 } from "../src/signer";
 
@@ -11,11 +12,13 @@ jest.mock("jsonwebtoken", () => ({
 
 const payloadPlaceholder = { isPlaceholder: true };
 const keyPlaceholder = "key placeholder";
+const headerPlaceholder = {sid: "a88da4a77a27511b7a6850e1d359aaf2"};
+const headerStringPlaceholder = '{sid: "a88da4a77a27511b7a6850e1d359aaf2"}';
 
 describe("For Signer, ", () => {
   describe("Testing Signing, ", () => {
     test("Verify signer returns a value when provided payload and key.", () => {
-      expect(sign(payloadPlaceholder, keyPlaceholder)).toBe("");
+      expect(sign(payloadPlaceholder, keyPlaceholder, headerPlaceholder)).toBe("");
     });
 
     test("Verify signer throws an error no parameters are not provided", () => {
@@ -24,15 +27,22 @@ describe("For Signer, ", () => {
 
     test("Verify signer throws an error when payload is falsey", () => {
       const emptyPayloadPlaceholder = null;
-      expect(() => sign(emptyPayloadPlaceholder, keyPlaceholder)).toThrow(
+      expect(() => sign(emptyPayloadPlaceholder, keyPlaceholder, headerPlaceholder)).toThrow(
         MissingPayloadError
       );
     });
 
     test("Verify signer throws an error when key is not provided", () => {
       const emptyKeyPlaceholder = "";
-      expect(() => sign(payloadPlaceholder, emptyKeyPlaceholder)).toThrow(
+      expect(() => sign(payloadPlaceholder, emptyKeyPlaceholder, headerPlaceholder)).toThrow(
         MissingPrivateKeyError
+      );
+    });
+
+    test("Verify signer throws an error when header is not provided", () => {
+      const emptyHeaderPlaceholder = "";
+      expect(() => sign(payloadPlaceholder, keyPlaceholder, emptyHeaderPlaceholder)).toThrow(
+          MissingHeaderError
       );
     });
 
@@ -44,4 +54,13 @@ describe("For Signer, ", () => {
       );
     });
   });
+  describe("Testing Parsing Header String, ", () => {
+      test("Verify that parseHeaderString runs successfully.", () => {
+        expect(() => parseHeaderString(headerStringPlaceholder)).not.toThrow();
+      });
+
+      test("Verify that parseHeaderString expects a non-empty string", () => {
+          expect(() => parseHeaderString("")).toThrow(MissingHeaderString);
+      })
+  })
 });
