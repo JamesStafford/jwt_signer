@@ -1,10 +1,5 @@
 import jwt from "jsonwebtoken";
-// const readline = require("readline");
-
-// const payload = {};
-// const privateKey = "";
-//
-// jwt.sign(payload, privateKey);
+const readline = require("readline");
 
 export const MissingPayloadAndPrivateKeyError = "Payload and Private Key are required to sign a JWT";
 export const MissingPayloadError = "Payload is required to sign a JWT";
@@ -16,3 +11,21 @@ export function sign(payload, privateKey) {
     if (!privateKey) throw new Error(MissingPrivateKeyError);
     return jwt.sign(payload, privateKey);
 }
+
+export function processUserInput() {
+    const readLineInterface = readline.createInterface({
+       input: process.stdin,
+       output: process.stdout
+    });
+
+    readLineInterface.write("Hello, world!");
+
+    // readLineInterface.on("Hello, world", () => {});
+
+    return {
+        keyPlaceholder: "",
+        payloadPlaceholder: {}
+    }
+}
+
+processUserInput();

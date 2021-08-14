@@ -18,7 +18,8 @@
     "jest": "^27.0.6",
     "jsonwebtoken": "^8.5.1",
     "nodemon": "^2.0.12",
-    "prettier": "^2.3.2"
+    "prettier": "^2.3.2",
+    "jest-mock-process": "^1.4.1"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest"
