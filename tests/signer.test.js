@@ -68,5 +68,9 @@ describe("For Signer, ", () => {
         sid: "a88da4a77a27511b7a6850e1d359aaf2",
       });
     });
+
+    test("Verify that parseHeaderString throws an error if invalid json stirng is provided.", () => {
+      expect(() => parseHeaderString("{invalid}")).toThrow("Parsing Error: \"SyntaxError: Unexpected token i in JSON at position 1\"");
+    });
   })
 });

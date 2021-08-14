@@ -8,16 +8,18 @@ export const MissingPrivateKeyError = "Private Key is required to sign a JWT.";
 export const MissingHeaderError = "Header is required to sign this JWT.";
 export const MissingHeaderString =
   "A non-empty string is required to convert header string into JSON";
+export const Invalid_JSON_String = "Invalid json was provided for header.";
 
 export function parseHeaderString(header) {
   if (!header) {
     throw new Error(MissingHeaderString);
   }
 
-  // try {
-  return JSON.parse(header);
-  // }
-  // return {sid: "a88da4a77a27511b7a6850e1d359aaf2"};
+  try {
+    return JSON.parse(header);
+  } catch (e) {
+    throw new Error(`Invalid_JSON_String. Parsing Error: "${e.toString()}"`);
+  }
 }
 
 export function sign(payload, privateKey, header) {
