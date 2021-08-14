@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node src/signer.js"
+    "start": "nodemon --exec babel-node src/main.js"
   },
   "keywords": [],
   "author": "",
@@ -19,7 +19,8 @@
     "jsonwebtoken": "^8.5.1",
     "nodemon": "^2.0.12",
     "prettier": "^2.3.2",
-    "jest-mock-process": "^1.4.1"
+    "jest-mock-process": "^1.4.1",
+    "mock-stdin": "^1.0.0"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest"
