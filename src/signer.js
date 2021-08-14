@@ -8,7 +8,6 @@ export const MissingPrivateKeyError = "Private Key is required to sign a JWT.";
 export const MissingHeaderError = "Header is required to sign this JWT.";
 export const MissingHeaderString =
   "A non-empty string is required to convert header string into JSON";
-export const Invalid_JSON_String = "Invalid json was provided for header.";
 
 export function parseHeaderString(header) {
   if (!header) {
