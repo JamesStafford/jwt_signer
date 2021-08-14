@@ -17,7 +17,7 @@ export function parseHeaderString(header) {
   try {
     return JSON.parse(header);
   } catch (e) {
-    throw new Error(`Invalid_JSON_String. Parsing Error: "${e.toString()}"`);
+    throw new Error(`Parsing Error: "${e.toString()}"`);
   }
 }
 
@@ -39,20 +39,17 @@ export function sign(payload, privateKey, header) {
   }
 
   return jwt.sign(payload, privateKey, {
-    header: {
-      typ: "JWT",
-      kid: "bdbd8dabcb8d49f3ae9732c14c9940ea",
-    },
+    header ,
   });
 }
 
 export function main() {
   const fileSystem = fs;
 
-  const pathToHeader = "data/payload.json";
+  const pathToHeader = "data/header.json";
   let header = null;
   try {
-    header = fileSystem.readFileSync(pathToHeader);
+    header = parseHeaderString(fileSystem.readFileSync(pathToHeader));
   } catch (error) {
     throw `Failed to read data from pathToHeader: "${pathToHeader}" with error: "${error.toString()}"`;
   }
