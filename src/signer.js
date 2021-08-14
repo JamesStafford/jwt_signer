@@ -6,12 +6,18 @@ export const MissingPayloadAndPrivateKeyError =
 export const MissingPayloadError = "Payload is required to sign a JWT.";
 export const MissingPrivateKeyError = "Private Key is required to sign a JWT.";
 export const MissingHeaderError = "Header is required to sign this JWT.";
-export const MissingHeaderString = "A non-empty string is required to convert header string into JSON";
+export const MissingHeaderString =
+  "A non-empty string is required to convert header string into JSON";
 
 export function parseHeaderString(header) {
-    if (!header) {
-        throw new Error(MissingHeaderString)
-    }
+  if (!header) {
+    throw new Error(MissingHeaderString);
+  }
+
+  // try {
+  return JSON.parse(header);
+  // }
+  // return {sid: "a88da4a77a27511b7a6850e1d359aaf2"};
 }
 
 export function sign(payload, privateKey, header) {
@@ -34,8 +40,8 @@ export function sign(payload, privateKey, header) {
   return jwt.sign(payload, privateKey, {
     header: {
       typ: "JWT",
-      kid: "bdbd8dabcb8d49f3ae9732c14c9940ea"
-    }
+      kid: "bdbd8dabcb8d49f3ae9732c14c9940ea",
+    },
   });
 }
 
@@ -46,31 +52,31 @@ export function main() {
   let header = null;
   try {
     header = fileSystem.readFileSync(pathToHeader);
-  } catch(error) {
-    throw `Failed to read data from pathToHeader: "${pathToHeader}" with error: "${error.toString()}"`
+  } catch (error) {
+    throw `Failed to read data from pathToHeader: "${pathToHeader}" with error: "${error.toString()}"`;
   }
 
   const pathToPayload = "data/payload.json";
   let payload = null;
   try {
     payload = fileSystem.readFileSync(pathToPayload);
-  } catch(error) {
-    throw `Failed to read data from pathToPayload: "${pathToPayload}" with error: "${error.toString()}"`
+  } catch (error) {
+    throw `Failed to read data from pathToPayload: "${pathToPayload}" with error: "${error.toString()}"`;
   }
 
   const pathToPrivateKey = "data/privateKey.rem";
   let privateKey = null;
   try {
     privateKey = fileSystem.readFileSync(pathToPrivateKey);
-  } catch(error) {
-    throw `Failed to read data from pathToPrivateKey: "${pathToPrivateKey}" with error: "${error.toString()}"`
+  } catch (error) {
+    throw `Failed to read data from pathToPrivateKey: "${pathToPrivateKey}" with error: "${error.toString()}"`;
   }
 
   const signedJWT = sign(payload, privateKey, header);
   const pathToSignedToken = "data/signedToken.txt";
   try {
     fileSystem.writeFileSync(pathToSignedToken, signedJWT);
-  } catch(error) {
-      throw `Failed to write key to pathToSignedToken: "${pathToSignedToken}" with error: "${error.toString()}"`
+  } catch (error) {
+    throw `Failed to write key to pathToSignedToken: "${pathToSignedToken}" with error: "${error.toString()}"`;
   }
 }

@@ -13,7 +13,7 @@ jest.mock("jsonwebtoken", () => ({
 const payloadPlaceholder = { isPlaceholder: true };
 const keyPlaceholder = "key placeholder";
 const headerPlaceholder = {sid: "a88da4a77a27511b7a6850e1d359aaf2"};
-const headerStringPlaceholder = '{sid: "a88da4a77a27511b7a6850e1d359aaf2"}';
+const headerStringPlaceholder = '{"sid": "a88da4a77a27511b7a6850e1d359aaf2"}';
 
 describe("For Signer, ", () => {
   describe("Testing Signing, ", () => {
@@ -61,6 +61,12 @@ describe("For Signer, ", () => {
 
       test("Verify that parseHeaderString expects a non-empty string", () => {
           expect(() => parseHeaderString("")).toThrow(MissingHeaderString);
-      })
+      });
+
+    test("Verify that parseHeaderString returns a json matching the provided string.", () => {
+      expect(parseHeaderString(headerStringPlaceholder)).toStrictEqual({
+        sid: "a88da4a77a27511b7a6850e1d359aaf2",
+      });
+    });
   })
 });
